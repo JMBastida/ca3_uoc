@@ -200,7 +200,10 @@ class QuizFragment : Fragment() {
 
         //BEGIN-CODE-UOC 5-2
 
-
+        if (item?.image_path != null) {
+            val bitmap: Bitmap? = BitmapFactory.decodeFile(item!!.image_path)
+            v2.setImageBitmap(bitmap)
+        }
 
 
         //END-CODE-UOC 5-2

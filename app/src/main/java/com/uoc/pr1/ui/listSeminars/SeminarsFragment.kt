@@ -13,11 +13,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.uoc.pr1.AddSeminarActivity
 import com.uoc.pr1.AddSeminarResult
 
 import com.uoc.pr1.MainActivity
 import com.uoc.pr1.PARAM_ADDREQUESTRESULT_CLASS
 import com.uoc.pr1.data.DataSource
+import com.uoc.pr1.data.DataSourceLocal
 import com.uoc.pr1.data.model.Seminary
 import com.uoc.pr1.databinding.FragmentListSeminarsBinding
 
@@ -98,7 +100,10 @@ class SeminarsFragment : Fragment() {
 
                 //BEGIN-CODE-UOC-6.5
 
-
+                if (value != null) {
+                    val dataSource = DataSource.getDataSource(DataSource.DataSourceFactory.Default, requireContext()) as DataSourceLocal
+                    dataSource.addSeminary(value.title, value.uri)
+                }
 
                 //END-CODE-UOC-6.5
             }
@@ -108,7 +113,12 @@ class SeminarsFragment : Fragment() {
         binding.btnNew.setOnClickListener {
             //Toast.makeText(activity, "The 'New seminar' button has been pressed.", Toast.LENGTH_SHORT).show()
             //BEGIN-CODE-UOC-6.2
-
+            binding.btnNew.setOnClickListener {
+                //BEGIN-CODE-UOC-6.2
+                val intent = Intent(this.context, AddSeminarActivity::class.java)
+                getResult.launch(intent)
+                //END-CODE-UOC-6.2
+            }
             //END-CODE-UOC-6.2
         }
 

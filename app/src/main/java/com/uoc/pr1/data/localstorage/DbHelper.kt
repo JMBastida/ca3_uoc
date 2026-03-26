@@ -20,7 +20,10 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "cat2", null, 1) {
         try {
 
             //BEGIN-CODE-UOC-1.1
-
+            db.execSQL(SQL_CREATE_user)
+            db.execSQL(SQL_CREATE_seminar)
+            db.execSQL(SQL_CREATE_item)
+            db.execSQL(SQL_CREATE_user_seminar)
             //END-CODE-UOC-1.1
 
 
@@ -60,15 +63,26 @@ class DbHelper(context: Context) : SQLiteOpenHelper(context, "cat2", null, 1) {
 
             //BEGIN-CODE-UOC-1.2
 
-
+            for (command in command_list) {
+                db.execSQL(command)
+            }
 
             //END-CODE-UOC-1.2
 
 
             //BEGIN-CODE-UOC-2
             /*
+            (a) In our application, this snippet initializes the local storage for seminar images.
+                It creates the necessary local directories within the app's internal storage.
+                Then, it reads two default images (introduction_mobile and mobile_environment)
+                from the app's drawable resources and saves them as physical JPEG files
+                (1.jpg and 2.jpg) into the newly created local folders to be used by the app.
 
+            (b) It creates a nested folder structure within the app's internal files directory:
+                a "media" folder, and inside it, a "seminar" subfolder (/media/seminar/).
 
+            (c) The images are stored in JPEG format with a compression quality of 90 (out of 100),
+                as seen in the bmp.compress() method call inside the MoveResources function.
             */
 
             var directory_path:String = _context.filesDir.path + "/media/"
@@ -137,6 +151,11 @@ CREATE TABLE "seminar" (
 	"item_type"	INTEGER,
 	"item_question"	TEXT,
     "item_link" TEXT,
+    "item_correct_answer" INTEGER,
+    "item_answer1" TEXT,
+    "item_answer2" TEXT,
+    "item_answer3" TEXT,
+    "item_answer4" TEXT,
 	PRIMARY KEY("item_id")
 );
  """

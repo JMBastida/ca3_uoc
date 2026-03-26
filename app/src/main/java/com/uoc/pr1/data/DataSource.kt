@@ -116,7 +116,19 @@ open class  DataSource {
         }
 
         //BEGIN-CODE-UOC-4
-        val Default = DataSourceType.Hardcode
+        val Default = DataSourceType.Local
+        /*
+        (a) This is possible due to polymorphism. Both DataSourceLocal and DataSourceHardcode
+            are subclasses of the parent class DataSource, so they can be safely returned
+            wherever an object of the parent type DataSource is expected.
+
+        (b) No, it would not affect the user interface. The UI interacts with the generic
+            DataSource parent class (via the Factory pattern), so the underlying implementation
+            details (how data is fetched) are completely isolated from the UI layer.
+
+        (c) Another local DataSource kind we could add is Room (a modern SQLite object-mapping
+            library by Android) or SharedPreferences for simpler key-value pair data.
+        */
         //BEGIN-END-UOC-4
 
         private var INSTANCE: DataSource? = null

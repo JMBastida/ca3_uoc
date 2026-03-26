@@ -48,7 +48,10 @@ class SeminarsAdapter(private val onClick: (Seminary) -> Unit) :
             itemTextView!!.text = item.name
             //BEGIN-CODE-UOC-5.1
 
-
+            if (item.image_path != null) {
+                val bitmap: Bitmap? = BitmapFactory.decodeFile(item.image_path)
+                itemImageView!!.setImageBitmap(bitmap)
+            }
 
             //END-CODE-UOC-5.1
 
